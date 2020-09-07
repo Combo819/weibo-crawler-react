@@ -1,2 +1,2 @@
-import WeiboCard from './WeiboCard';
-export {WeiboCard}
+import ImageCard from './WeiboCard';
+export {ImageCard}

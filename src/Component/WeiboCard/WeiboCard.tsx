@@ -3,7 +3,7 @@ import { Card, Avatar, Row, Col } from "antd";
 import { LikeOutlined, CommentOutlined } from "@ant-design/icons";
 import _ from "lodash";
 
-export default function WeiboCard() {
+export default function ImageCard() {
   const images = [
     "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
     "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",

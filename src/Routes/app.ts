@@ -8,7 +8,7 @@ export interface Route {
 
 const routes:Route[] = [
     {
-        path:'/weibo',
+        path:'/',
         component:Weibo
     }
 ]

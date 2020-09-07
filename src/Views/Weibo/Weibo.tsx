@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Row, Card } from "antd";
-import { WeiboCard } from "../../Component/WeiboCard";
+import { ImageCard } from "../../Component/WeiboCard";
 
 function Weibo(Props: React.Props<any>) {
   return (
@@ -8,7 +8,7 @@ function Weibo(Props: React.Props<any>) {
       <Col>
         <Row>
           <Col>
-            <Card><WeiboCard></WeiboCard></Card>
+            <Card><ImageCard></ImageCard></Card>
           </Col>
         </Row>
       </Col>
