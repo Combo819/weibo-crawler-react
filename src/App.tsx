@@ -1,25 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import { Layout, Menu, Breadcrumb, Button } from "antd";
+import { Switch, Route } from "react-router-dom";
+import { routes } from "./Routes";
 
-function App() {
+const { Header, Content, Footer } = Layout;
+
+function App(): JSX.Element {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Header
+        style={{
+          background: "white",
+        }}
+      >
+        <Menu mode="horizontal">
+          <Menu.Item key="1">
+            <Button>save</Button>
+          </Menu.Item>
+        </Menu>
+      </Header>
+      <Content>
+        <Switch>
+          {routes.map(
+            (item): React.ReactNode => {
+              return (
+                <Route path={item.path}>
+                  <item.component></item.component>
+                </Route>
+              );
+            }
+          )}
+        </Switch>
+      </Content>
+    </Layout>
   );
 }
 
