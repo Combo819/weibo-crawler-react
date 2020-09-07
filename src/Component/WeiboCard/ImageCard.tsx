@@ -2,8 +2,13 @@ import React from "react";
 import { Card, Avatar, Row, Col } from "antd";
 import { LikeOutlined, CommentOutlined } from "@ant-design/icons";
 import _ from "lodash";
+import HtmlParser from "react-html-parser";
+type ImageCardProps = {
+  weibo:any
+}
 
-export default function ImageCard() {
+export default function ImageCard(props:ImageCardProps) {
+  const {weibo} =  props;
   const images = [
     "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
     "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
@@ -32,8 +37,8 @@ export default function ImageCard() {
         avatar={
           <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
         }
-        title={"@24combo"}
-        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        title={`@${weibo.user.screenName}`}
+        description={HtmlParser(weibo.text)}
       />
       <Row justify="center">
         <Col>

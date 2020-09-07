@@ -1,22 +1,33 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import { Col, Row, Pagination } from "antd";
 import { ImageCard, VideoCard } from "../../Component/WeiboCard";
+import  {getWeibosApi} from '../../Api';
 
 function Weibo(Props: React.Props<any>) {
+  const [weibos,setWeibos] = useState([]);
+
+  useEffect(()=>{
+    getWeibosApi(0,10).then(res=>{
+      const {weibo,totalNumber}:{weibo:any,totalNumber:number} = res.data;
+      setWeibos(weibo);
+    }).catch(err=>{
+      console.log(err);
+    })
+  },[]);
+
   return (
     <>
       <Row justify="center" align="middle">
         <Col span={8}>
-          <Row className="mt-5">
-            <Col>
-              <ImageCard></ImageCard>
-            </Col>
-          </Row>
-          <Row className="mt-5">
-            <Col>
-              <VideoCard></VideoCard>
-            </Col>
-          </Row>
+          {
+            weibos.map((item:any)=>{
+              return <Row>
+                <Col>
+                  <ImageCard weibo={item}  ></ImageCard>
+                </Col>
+              </Row>
+            })
+          }
         </Col>
       </Row>
       <Row justify="center" align='middle'>

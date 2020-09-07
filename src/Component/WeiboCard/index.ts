@@ -1,3 +1,4 @@
 import ImageCard from './ImageCard';
-import VideoCard from './VideoCard'
-export {ImageCard,VideoCard}
+import VideoCard from './VideoCard';
+import TextCard from './TextCard'
+export {ImageCard,VideoCard,TextCard}

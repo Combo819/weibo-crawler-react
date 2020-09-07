@@ -1,12 +1,11 @@
 import React from "react";
-import { Card, Avatar, Row, Col } from "antd";
+import { Card, Avatar } from "antd";
 import { LikeOutlined, CommentOutlined } from "@ant-design/icons";
-import ReactPlayer from "react-player";
 import HtmlParser from "react-html-parser";
-type VideoCardProps = {
+type TextCardProps = {
   weibo: any;
 };
-export default function VideoCard(props: VideoCardProps) {
+export default function TextCard(props: TextCardProps) {
   const { weibo } = props;
   return (
     <Card
@@ -24,20 +23,11 @@ export default function VideoCard(props: VideoCardProps) {
       <Card.Meta
         style={{ marginBottom: 10 }}
         avatar={
-          <Avatar src={weibo.user.profileImageUrl} />
+          <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
         }
-        title={`@${weibo.user.screenName}`}
+        title={"@24combo"}
         description={HtmlParser(weibo.text)}
       />
-      <Row justify="center">
-        <Col style={{}}>
-          <ReactPlayer
-            style={{ marginLeft: 30 }}
-            width={500}
-            url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
-          />
-        </Col>
-      </Row>
     </Card>
   );
 }
