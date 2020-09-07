@@ -1,2 +1,3 @@
-import ImageCard from './WeiboCard';
-export {ImageCard}
+import ImageCard from './ImageCard';
+import VideoCard from './VideoCard'
+export {ImageCard,VideoCard}

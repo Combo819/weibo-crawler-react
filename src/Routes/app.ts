@@ -10,7 +10,8 @@ const routes:Route[] = [
     {
         path:'/',
         component:Weibo
-    }
+    },
+   
 ]
 
 export default routes;

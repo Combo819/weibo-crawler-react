@@ -24,7 +24,7 @@ export default function ImageCard() {
           <LikeOutlined key="like"></LikeOutlined>18
         </div>,
       ]}
-      style={{ width: 600 }}
+      style={{ width: '100%' }}
     >
       {" "}
       <Card.Meta
