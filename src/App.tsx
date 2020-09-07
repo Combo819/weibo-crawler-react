@@ -1,7 +1,6 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import { Layout, Menu, Breadcrumb, Button } from "antd";
+import { Layout, Menu, Button } from "antd";
 import { Switch, Route } from "react-router-dom";
 import { routes } from "./Routes";
 
