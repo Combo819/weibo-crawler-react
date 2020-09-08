@@ -21,7 +21,7 @@ function Weibo(Props: React.Props<any>) {
         <Col span={8}>
           {
             weibos.map((item:any)=>{
-              return <Row>
+              return <Row className={'mt-3'} key={item.id}>
                 <Col>
                   <ImageCard weibo={item}  ></ImageCard>
                 </Col>
