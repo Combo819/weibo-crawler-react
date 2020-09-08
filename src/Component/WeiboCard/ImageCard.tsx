@@ -21,15 +21,6 @@ export default function ImageCard(props: ImageCardProps) {
   const chunkImages = _.chunk(images, 3);
   return (
     <CardProto weibo={weibo}>
-      {chunkImages.map((item) => (
-        <Row   gutter={[8, 8]} justify="start">
-          {item.map((ele) => (
-            <Col key={ele} style={{ width: 150, overflow: "hidden" }}>
-              <img src={ele}></img>
-            </Col>
-          ))}
-        </Row>
-      ))}
     </CardProto>
   );
 }

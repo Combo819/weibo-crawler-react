@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { Card, Avatar, Row, Col } from "antd";
 import { LikeOutlined, CommentOutlined } from "@ant-design/icons";
 import _ from "lodash";
@@ -6,9 +6,10 @@ import HtmlParser from "react-html-parser";
 import ReactPlayer from "react-player";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
+import { PhotoProvider, PhotoConsumer } from "react-photo-view";
+import "react-photo-view/dist/index.css";
 type CardProps = {
   weibo: any;
-  children: React.ReactNode;
 };
 
 const getVideoUrl = (url: string): string => {
@@ -57,21 +58,34 @@ export default function WeiboCard(props: CardProps) {
       {weibo.pics && (
         <Row justify="center">
           <Col>
-            {chunkImages.map((item) => (
-              <Row gutter={[8, 8]} justify="start">
-                {item.map((ele) => (
-                  <Col key={ele.url} style={{ width: 150, overflow: "hidden" }}>
-                    <Zoom>
-                      <img
-                        className="img-thumbnail"
-                        style={{ height: 150, width: 150, objectFit: "cover" }}
+            <PhotoProvider>
+              {chunkImages.map((item) => (
+                <Row gutter={[8, 8]} justify="start">
+                  {item.map((ele) => (
+                    <Col
+                      key={ele.url}
+                      style={{ width: 150, overflow: "hidden" }}
+                    >
+                      <PhotoConsumer
+                        key={getImageUrl(ele.url)}
+                        intro={getImageUrl(ele.url)}
                         src={getImageUrl(ele.url)}
-                      ></img>
-                    </Zoom>
-                  </Col>
-                ))}
-              </Row>
-            ))}
+                      >
+                        <img
+                          className="img-thumbnail"
+                          style={{
+                            height: 150,
+                            width: 150,
+                            objectFit: "cover",
+                          }}
+                          src={getImageUrl(ele.url)}
+                        ></img>
+                      </PhotoConsumer>
+                    </Col>
+                  ))}
+                </Row>
+              ))}
+            </PhotoProvider>
           </Col>
         </Row>
       )}
