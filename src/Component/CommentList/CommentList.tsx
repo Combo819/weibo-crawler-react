@@ -7,14 +7,13 @@ import { LikeOutlined } from "@ant-design/icons";
 export default function CommentList(props: React.Props<any>) {
   function useQuery() {
     const query = new URLSearchParams(useLocation().search);
-    return {page:query.get('page'),pageSize:query.get('pageSize')};
+    return { page: query.get("page"), pageSize: query.get("pageSize") };
   }
-  
 
   const history = useHistory();
-  console.log(useLocation(), "useLocation().state");
+  const { pathname } = useLocation();
   const { weiboId } = useParams();
-  const {page:urlPage,pageSize:urlPageSize} = useQuery();
+  const { page: urlPage, pageSize: urlPageSize } = useQuery();
   const [comments, setComments] = useState([]);
   const [totalNumber, setTotalNumber] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -23,11 +22,7 @@ export default function CommentList(props: React.Props<any>) {
 
   useEffect(() => {
     setLoading(true);
-    getCommentsApi(
-      weiboId,
-      parseInt(page|| "1"),
-      parseInt(pageSize || "10")
-    )
+    getCommentsApi(weiboId, parseInt(page || "1"), parseInt(pageSize || "10"))
       .then((res) => {
         const { comments, totalNumber } = res.data;
         setComments(comments);
@@ -37,11 +32,10 @@ export default function CommentList(props: React.Props<any>) {
       .catch((err) => {});
   }, [weiboId, page, pageSize]);
   const onShowSizeChange = (currentPage: number, pageSize: number) => {
-    
     setPage(String(currentPage));
     setPageSize(String(pageSize));
     history.push({
-      pathname: `/comments/${weiboId}`,
+      pathname: `${pathname}`,
       search: `?page=${page}&pageSize=${pageSize}`,
     });
   };
@@ -59,11 +53,24 @@ export default function CommentList(props: React.Props<any>) {
       <Row justify="center">
         <Col style={{ width: 600 }}>
           <List
+            style={{ backgroundColor: "white" }}
+            bordered
+            split
             loading={loading}
-            itemLayout="horizontal"
+            itemLayout="vertical"
             dataSource={comments}
             renderItem={(item: any) => (
-              <List.Item>
+              <List.Item
+                actions={[
+                  <a key="list-loadmore-edit">
+                    {item.subComments.length} replies
+                  </a>,
+                  <>
+                    <span style={{ position: "relative", top: 5 }}> {item && item.likeCount}</span>
+                    <LikeOutlined  key="like"></LikeOutlined>
+                  </>,
+                ]}
+              >
                 <List.Item.Meta
                   avatar={<Avatar src={item.user && item.user.avatarHd} />}
                   title={
@@ -73,8 +80,6 @@ export default function CommentList(props: React.Props<any>) {
                   }
                   description={HtmlParser(item.text)}
                 />
-                <span> {item && item.likeCount}</span>
-                <LikeOutlined key="like"></LikeOutlined>
               </List.Item>
             )}
           />
