@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row, Pagination } from "antd";
-import { CardProto } from "../../Component/WeiboCard";
+import { WeiboCard } from "../../Component/WeiboCard";
 import { getWeibosApi } from "../../Api";
 
 function Weibo(Props: React.Props<any>) {
@@ -28,7 +28,7 @@ function Weibo(Props: React.Props<any>) {
             return (
               <Row className={"mt-3"} key={item.id}>
                 <Col>
-                  <CardProto weibo={item}></CardProto>
+                  <WeiboCard weibo={item}></WeiboCard>
                 </Col>
               </Row>
             );

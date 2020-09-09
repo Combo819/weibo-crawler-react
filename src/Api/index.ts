@@ -1,3 +1,4 @@
-import {getWeibosApi} from './weibo'
+import {getWeibosApi,getSingleWeiboApi} from './weibo';
+import {getComments} from './comment';
 
-export {getWeibosApi};
+export {getWeibosApi,getComments,getSingleWeiboApi};

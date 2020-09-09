@@ -8,8 +8,10 @@ import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import { PhotoProvider, PhotoConsumer } from "react-photo-view";
 import "react-photo-view/dist/index.css";
+
 type CardProps = {
   weibo: any;
+  loading?: boolean;
 };
 
 const getVideoUrl = (url: string): string => {
@@ -25,25 +27,26 @@ const getImageUrl = (url: string): string => {
 };
 
 export default function WeiboCard(props: CardProps) {
-  const { weibo } = props;
-  const chunkImages: any[][] = _.chunk(weibo.pics, 3);
+  const { weibo={}, loading } = props;
+  const chunkImages: any[][] = _.chunk(weibo&&weibo.pics, 3);
 
   return (
     <Card
+      loading={loading || false}
       actions={[
         <div>
           <CommentOutlined
             style={{ position: "relative", top: -3 }}
             key="comment"
           ></CommentOutlined>
-          <span>{weibo.commentsCount}</span>
+          <span>{weibo&&weibo.commentsCount}</span>
         </div>,
         <div>
           <LikeOutlined
             style={{ position: "relative", top: -3 }}
             key="like"
           ></LikeOutlined>
-          <span> {weibo.attitudesCount}</span>
+          <span> {weibo&&weibo.attitudesCount}</span>
         </div>,
       ]}
       style={{ width: "100%" }}
@@ -51,11 +54,11 @@ export default function WeiboCard(props: CardProps) {
       {" "}
       <Card.Meta
         style={{ marginBottom: 10 }}
-        avatar={<Avatar src={weibo.user.avatarHd} />}
-        title={`@${weibo.user.screenName}`}
-        description={HtmlParser(weibo.text)}
+        avatar={<Avatar src={weibo&&weibo.user && weibo.user.avatarHd} />}
+        title={`@${weibo&&weibo.user && weibo.user.screenName}`}
+        description={HtmlParser(weibo&&weibo.text)}
       />
-      {weibo.pics && (
+      {weibo&&weibo.pics && (
         <Row justify="center">
           <Col>
             <PhotoProvider>
@@ -89,14 +92,14 @@ export default function WeiboCard(props: CardProps) {
           </Col>
         </Row>
       )}
-      {weibo.pageInfo && (
+      {weibo&&weibo.pageInfo && (
         <Row justify="center">
           <Col>
             <ReactPlayer
               type="video/mp4"
               style={{ marginLeft: 30 }}
               width={500}
-              url={getVideoUrl(weibo.pageInfo.url)}
+              url={getVideoUrl(weibo&&weibo.pageInfo.url)}
               controls={true}
             />
           </Col>
