@@ -3,8 +3,8 @@ import { AxiosPromise } from "axios";
 
 function getWeibosApi(page: number, pageSize: number): AxiosPromise {
   return axios({
-    url: "/weibo",
-    params: { page, pageSize },
+    url: "/weibos",
+    params: { page:page-1, pageSize },
   });
 }
 
@@ -16,8 +16,8 @@ function getWeibosApi(page: number, pageSize: number): AxiosPromise {
  */
 function getSingleWeiboApi(weiboId:string,page:number,pageSize:number):AxiosPromise{
   return axios({
-    url:`/comments/${weiboId}`,
-    params:{page,pageSize}
+    url:`/weibo/${weiboId}`,
+    params:{page:page-1,pageSize}
   })
 }
 

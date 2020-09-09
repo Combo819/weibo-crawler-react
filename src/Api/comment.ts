@@ -7,11 +7,11 @@ import { AxiosPromise } from 'axios';
  * @param page 
  * @param pageSize 
  */
-function getComments(weiboId:string,page:number,pageSize:number):AxiosPromise{
+function getCommentsApi(weiboId:string,page:number,pageSize:number):AxiosPromise{
     return axios({
-        url:'/comments',
-        params:{page,pageSize}
+        url:`/comments/${weiboId}`,
+        params:{page:page-1,pageSize}
     })
 }
 
-export {getComments};
+export {getCommentsApi};

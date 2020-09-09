@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row, PageHeader } from "antd";
+import { Col, Row, PageHeader, List, Avatar, Pagination } from "antd";
 import { WeiboCard } from "../../Component/WeiboCard";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { getSingleWeiboApi } from "../../Api";
+import { CommentList } from "../../Component/CommentList";
 function Comments(props: React.Props<any>) {
   function useQuery() {
     return new URLSearchParams(useLocation().search);
   }
   function usePushState() {
-    return useLocation().state || { page: 0, pageSize: 10 };
+    return useLocation().state || { page: 1, pageSize: 10 };
   }
   const history = useHistory();
   console.log(useLocation(), "useLocation().state");
   const { weiboId } = useParams();
   const query = useQuery();
-  const [weibo, setWeibo] = useState({});
-  const [totalNumber, setTotalNumber] = useState(0);
+  const [weibo, setWeibo] = useState({ comments: [] });
   const [loading, setLoading] = useState(false);
   const { page: backPage, pageSize: backPageSize } = usePushState() as any;
+
   useEffect(() => {
     setLoading(true);
     getSingleWeiboApi(
@@ -28,11 +29,11 @@ function Comments(props: React.Props<any>) {
       .then((res) => {
         const { weibo, totalNumber } = res.data;
         setWeibo(weibo);
-        setTotalNumber(totalNumber);
         setLoading(false);
       })
       .catch((err) => {});
   }, [weiboId]);
+
   return (
     <>
       <Row justify="center">
@@ -45,8 +46,8 @@ function Comments(props: React.Props<any>) {
                 search: `?page=${backPage}&pageSize=${backPageSize}`,
               });
             }}
-            title="Title"
-            subTitle="This is a subtitle"
+            title="Back"
+            subTitle="Back to weibo list"
           />
         </Col>
       </Row>
@@ -59,9 +60,7 @@ function Comments(props: React.Props<any>) {
           ></WeiboCard>
         </Col>
       </Row>
-      <Row justify="center">
-        <Col>comment</Col>
-      </Row>
+      <CommentList></CommentList>
     </>
   );
 }
