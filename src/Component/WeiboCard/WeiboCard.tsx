@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React  from "react";
 import { Card, Avatar, Row, Col } from "antd";
 import { LikeOutlined, CommentOutlined } from "@ant-design/icons";
 import _ from "lodash";
 import HtmlParser from "react-html-parser";
 import ReactPlayer from "react-player";
-import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import { PhotoProvider, PhotoConsumer } from "react-photo-view";
 import "react-photo-view/dist/index.css";
+import {useHistory} from 'react-router-dom'
 
 type CardProps = {
   weibo: any;
+  isCommentsPage:boolean;
+  page?:string|null;
+  pageSize?:string|null;
   loading?: boolean;
 };
 
@@ -27,14 +30,17 @@ const getImageUrl = (url: string): string => {
 };
 
 export default function WeiboCard(props: CardProps) {
-  const { weibo={}, loading } = props;
+  const { weibo={}, loading,page,pageSize,isCommentsPage } = props;
   const chunkImages: any[][] = _.chunk(weibo&&weibo.pics, 3);
-
+  const history = useHistory();
   return (
     <Card
       loading={loading || false}
       actions={[
-        <div>
+        !isCommentsPage&&<div onClick={()=>{
+          //history.push(`/comments/${weibo.id}?page=1&pageSize=10`,'hello')
+          history.push({pathname:`/comments/${weibo.id}`,search:`?page=1&pageSize=10`,state:{page,pageSize}})
+        }}>
           <CommentOutlined
             style={{ position: "relative", top: -3 }}
             key="comment"

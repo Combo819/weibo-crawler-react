@@ -1,10 +1,10 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, ComponentClass } from "react";
 import { Weibo } from "../Views/Weibo";
 import { Comments } from "../Views/Comments";
 
 export interface Route {
   path: string;
-  component: FunctionComponent;
+  component: FunctionComponent|ComponentClass;
   exact?: boolean;
 }
 

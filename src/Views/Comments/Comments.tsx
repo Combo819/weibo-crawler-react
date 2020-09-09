@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row, PageHeader } from "antd";
 import { WeiboCard } from "../../Component/WeiboCard";
-import { Switch, Route, useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useHistory } from "react-router-dom";
 import { getSingleWeiboApi } from "../../Api";
-export default function Comments(props: React.Props<any>) {
+function Comments(props: React.Props<any>) {
   function useQuery() {
     return new URLSearchParams(useLocation().search);
   }
+  function usePushState() {
+    return useLocation().state || { page: 0, pageSize: 10 };
+  }
+  const history = useHistory();
+  console.log(useLocation(), "useLocation().state");
   const { weiboId } = useParams();
   const query = useQuery();
   const [weibo, setWeibo] = useState({});
   const [totalNumber, setTotalNumber] = useState(0);
   const [loading, setLoading] = useState(false);
+  const { page: backPage, pageSize: backPageSize } = usePushState() as any;
   useEffect(() => {
     setLoading(true);
     getSingleWeiboApi(
@@ -29,11 +35,16 @@ export default function Comments(props: React.Props<any>) {
   }, [weiboId]);
   return (
     <>
-      <Row justify='center'>
-        <Col style={{ width: 600 }} >
+      <Row justify="center">
+        <Col style={{ width: 600 }}>
           <PageHeader
             className="site-page-header"
-            onBack={() => null}
+            onBack={() => {
+              history.push({
+                pathname: `/`,
+                search: `?page=${backPage}&pageSize=${backPageSize}`,
+              });
+            }}
             title="Title"
             subTitle="This is a subtitle"
           />
@@ -41,7 +52,11 @@ export default function Comments(props: React.Props<any>) {
       </Row>
       <Row justify="center">
         <Col style={{ width: 600 }}>
-          <WeiboCard loading={loading} weibo={weibo}></WeiboCard>
+          <WeiboCard
+            isCommentsPage={true}
+            loading={loading}
+            weibo={weibo}
+          ></WeiboCard>
         </Col>
       </Row>
       <Row justify="center">
@@ -50,3 +65,5 @@ export default function Comments(props: React.Props<any>) {
     </>
   );
 }
+
+export default Comments;

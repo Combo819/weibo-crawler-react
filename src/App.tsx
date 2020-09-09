@@ -1,9 +1,8 @@
-import React,{useEffect,useState} from "react";
+import React  from "react";
 import "./App.css";
 import { Layout, Menu, Button } from "antd";
 import {Switch,Route} from 'react-router-dom';
 import { routes } from "./Routes";
-import {getWeibosApi} from './Api'
 const { Header, Content, Footer } = Layout;
 
 function App(): JSX.Element {
@@ -26,8 +25,8 @@ function App(): JSX.Element {
           {routes.map(
             (item): React.ReactNode => {
               return (
-                <Route path={item.path}>
-                  <item.component></item.component>
+                <Route path={item.path} render={(props:any)=><item.component {...props}></item.component>}>
+                  
                 </Route>
               );
             }
