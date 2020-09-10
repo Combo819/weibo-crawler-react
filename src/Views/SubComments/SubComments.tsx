@@ -3,7 +3,7 @@ import { Col, Row, PageHeader, Card, Avatar } from "antd";
 import { LikeOutlined } from "@ant-design/icons";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { getSingleCommentApi } from "../../Api";
-import { CommentList } from "../../Component/CommentList";
+import {SubCommentList} from '../../Component/SubCommentList'
 import HtmlParser from "react-html-parser";
 function SubComments(props: React.Props<any>) {
   function useQuery() {
@@ -85,7 +85,7 @@ function SubComments(props: React.Props<any>) {
           </Card>
         </Col>
       </Row>
-     
+     <SubCommentList></SubCommentList>
     </>
   );
 }

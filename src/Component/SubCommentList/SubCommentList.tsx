@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row, List, Avatar, Pagination } from "antd";
 import { useParams, useLocation, useHistory } from "react-router-dom";
-import { getCommentsApi } from "../../Api";
+import { getSingleCommentApi } from "../../Api";
 import HtmlParser from "react-html-parser";
-import { LikeOutlined, PictureOutlined } from "@ant-design/icons";
-import { PhotoProvider, PhotoConsumer } from "react-photo-view";
-import "react-photo-view/dist/index.css";
-import { getImageUrl } from "../../Utility/parseUrl";
+import { LikeOutlined } from "@ant-design/icons";
 export default function CommentList(props: React.Props<any>) {
   function useQuery() {
     const query = new URLSearchParams(useLocation().search);
@@ -15,9 +12,9 @@ export default function CommentList(props: React.Props<any>) {
 
   const history = useHistory();
   const { pathname } = useLocation();
-  const { weiboId } = useParams();
+  const { commentId } = useParams();
   const { page: urlPage, pageSize: urlPageSize } = useQuery();
-  const [comments, setComments] = useState([]);
+  const [comment, setComment] = useState({subComments:[]});
   const [totalNumber, setTotalNumber] = useState(0);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(urlPage);
@@ -25,15 +22,19 @@ export default function CommentList(props: React.Props<any>) {
 
   useEffect(() => {
     setLoading(true);
-    getCommentsApi(weiboId, parseInt(page || "1"), parseInt(pageSize || "10"))
+    getSingleCommentApi(
+      commentId,
+      parseInt(page || "1"),
+      parseInt(pageSize || "10")
+    )
       .then((res) => {
-        const { comments, totalNumber } = res.data;
-        setComments(comments);
+        const { comment, totalNumber } = res.data;
+        setComment(comment);
         setTotalNumber(totalNumber);
         setLoading(false);
       })
       .catch((err) => {});
-  }, [weiboId, page, pageSize]);
+  }, [commentId, page, pageSize]);
   const onShowSizeChange = (currentPage: number, pageSize: number) => {
     const newPage = currentPage<=0?1:currentPage;
     setPage(String(newPage));
@@ -49,24 +50,10 @@ export default function CommentList(props: React.Props<any>) {
     setPage(String(newPage));
     setPageSize(String(pageSize));
     history.push({
-      pathname: `/comments/${weiboId}`,
+      pathname: `${pathname}`,
       search: `?page=${newPage}&pageSize=${pageSize}`,
     });
   };
-  const toSubComments = (commentId: string) => {
-    history.push({
-      pathname: `/subComments/${commentId}`,
-      search: `?page=1&pageSize=10`,
-      state: { page, pageSize },
-    });
-  };
-
-  const repliesStyle=(num:number)=>{
-    if(num>0){
-      return {color: "#1890ff"}
-    }
-    return {cursor: "default"}
-  }
   return (
     <>
       <Row justify="center">
@@ -76,39 +63,18 @@ export default function CommentList(props: React.Props<any>) {
             bordered
             split
             loading={loading}
-            itemLayout="vertical"
-            dataSource={comments || []}
+            itemLayout="horizontal"
+            dataSource={(comment&&comment.subComments)||[]}
             renderItem={(item: any) => (
               <List.Item
                 actions={[
                   <>
-                    <span  style={{ position: "relative", top: 5 }}>
+                    <span style={{ position: "relative", top: 5 }}>
                       {" "}
                       {item && item.likeCount}
                     </span>
-                    <LikeOutlined  key="like"></LikeOutlined>
+                    <LikeOutlined key="like"></LikeOutlined>
                   </>,
-                  <a
-                    onClick={() => {
-                      if(item.subComments.length>0){
-                        toSubComments(item && item.id);
-                      }
-                      
-                    }}
-                    key="list-loadmore-edit"
-                    style={repliesStyle(item.subComments.length)}
-                  >
-                    {item.subComments.length} replies
-                  </a>,
-                  item.pic && (
-                    <PhotoProvider>
-                      <PhotoConsumer src={getImageUrl(item.pic.url)}>
-                        <PictureOutlined
-                          style={{ color: "#1890ff", cursor: "pointer" }}
-                        />
-                      </PhotoConsumer>
-                    </PhotoProvider>
-                  ),
                 ]}
               >
                 <List.Item.Meta
