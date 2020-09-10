@@ -1,11 +1,13 @@
-import React  from "react";
+import React, { useState }  from "react";
 import "./App.css";
 import { Layout, Menu, Button } from "antd";
 import {Switch,Route} from 'react-router-dom';
 import { routes } from "./Routes";
+import {SaveWeiboModal} from './Component/Modal'
 const { Header, Content, Footer } = Layout;
 
 function App(): JSX.Element {
+  const [isSaveModalVisible,setSaveModalVisible] = useState(false);
  
   return (
     <Layout>
@@ -16,7 +18,7 @@ function App(): JSX.Element {
       >
         <Menu mode="horizontal">
           <Menu.Item key="1">
-            <Button>save</Button>
+            <Button onClick={()=>{setSaveModalVisible(true)}} >save</Button>
           </Menu.Item>
         </Menu>
       </Header>
@@ -33,6 +35,7 @@ function App(): JSX.Element {
           )}
         </Switch>
       </Content>
+      <SaveWeiboModal visible={isSaveModalVisible} closeModal={()=>{setSaveModalVisible(false)}}></SaveWeiboModal>
     </Layout>
   );
 }

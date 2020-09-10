@@ -21,4 +21,12 @@ function getSingleWeiboApi(weiboId:string,page:number,pageSize:number):AxiosProm
   })
 }
 
-export {getWeibosApi,getSingleWeiboApi};
+function saveWeiboApi(weiboId:string):AxiosPromise{
+  return axios({
+    method:'post',
+    url:`/save`,
+    data:{weiboId}
+  })
+}
+
+export {getWeibosApi,getSingleWeiboApi,saveWeiboApi};

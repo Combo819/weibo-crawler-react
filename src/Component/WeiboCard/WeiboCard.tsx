@@ -55,7 +55,7 @@ export default function WeiboCard(props: CardProps) {
           <span> {weibo&&weibo.attitudesCount}</span>
         </div>,
       ]}
-      style={{ width: "100%" }}
+      style={{ width: 600 }}
     >
       {" "}
       <Card.Meta
@@ -98,7 +98,7 @@ export default function WeiboCard(props: CardProps) {
           </Col>
         </Row>
       )}
-      {weibo&&weibo.pageInfo && (
+      {weibo&&weibo.pageInfo&&weibo.pageInfo.urls && (
         <Row justify="center">
           <Col>
             <ReactPlayer
