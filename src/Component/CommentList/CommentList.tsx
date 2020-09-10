@@ -48,6 +48,9 @@ export default function CommentList(props: React.Props<any>) {
       search: `?page=${currentPage}&pageSize=${pageSize}`,
     });
   };
+  const toSubComments = (commentId:string)=>{
+    history.push({pathname:`/subComments/${commentId}`,search:`?page=1&pageSize=10`,state:{page,pageSize}})
+  }
   return (
     <>
       <Row justify="center">
@@ -58,11 +61,11 @@ export default function CommentList(props: React.Props<any>) {
             split
             loading={loading}
             itemLayout="vertical"
-            dataSource={comments}
+            dataSource={comments||[]}
             renderItem={(item: any) => (
               <List.Item
                 actions={[
-                  <a key="list-loadmore-edit">
+                  <a onClick={()=>{toSubComments(item&&item.id)}} key="list-loadmore-edit">
                     {item.subComments.length} replies
                   </a>,
                   <>

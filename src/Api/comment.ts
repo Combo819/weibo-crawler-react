@@ -14,4 +14,11 @@ function getCommentsApi(weiboId:string,page:number,pageSize:number):AxiosPromise
     })
 }
 
-export {getCommentsApi};
+function getSingleCommentApi(commentId:string,page:number,pageSize:number):AxiosPromise{
+    return axios({
+        url:`/comment/${commentId}`,
+        params:{page:page-1,pageSize}
+    })
+}
+
+export {getCommentsApi,getSingleCommentApi};
