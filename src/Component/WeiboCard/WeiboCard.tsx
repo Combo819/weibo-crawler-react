@@ -7,7 +7,8 @@ import ReactPlayer from "react-player";
 import "react-medium-image-zoom/dist/styles.css";
 import { PhotoProvider, PhotoConsumer } from "react-photo-view";
 import "react-photo-view/dist/index.css";
-import {useHistory} from 'react-router-dom'
+import {useHistory} from 'react-router-dom';
+import {getVideoUrl,getImageUrl} from '../../Utility/parseUrl'
 
 type CardProps = {
   weibo: any;
@@ -17,17 +18,7 @@ type CardProps = {
   loading?: boolean;
 };
 
-const getVideoUrl = (url: string): string => {
-  const urlNoQuery = url.split("?")[0];
-  const fileName = urlNoQuery.split("/").pop();
-  return `http://localhost/videos/${fileName}`;
-};
 
-const getImageUrl = (url: string): string => {
-  const urlNoQuery = url.split("?")[0];
-  const fileName = urlNoQuery.split("/").pop();
-  return `http://localhost/images/${fileName}`;
-};
 
 export default function WeiboCard(props: CardProps) {
   const { weibo={}, loading,page,pageSize,isCommentsPage } = props;
