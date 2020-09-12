@@ -27,9 +27,10 @@ function Weibo(Props: React.Props<any>) {
   }, [page,pageSize]);
 
   const onShowSizeChange = (currentPage: number, pageSize: number) => {
-    setPage(String(currentPage));
+    const newPage = currentPage<=0?1:currentPage;
+    setPage(String(newPage));
     setPageSize(String(pageSize));
-    history.push({pathname:'/',search:`?page=${page}&pageSize=${pageSize}`})
+    history.push({pathname:'/',search:`?page=${newPage}&pageSize=${pageSize}`})
   };
 
   return (

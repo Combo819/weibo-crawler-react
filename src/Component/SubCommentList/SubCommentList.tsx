@@ -4,6 +4,7 @@ import { useParams, useLocation, useHistory } from "react-router-dom";
 import { getSingleCommentApi } from "../../Api";
 import HtmlParser from "react-html-parser";
 import { LikeOutlined } from "@ant-design/icons";
+import {getImageUrl} from '../../Utility/parseUrl'
 export default function CommentList(props: React.Props<any>) {
   function useQuery() {
     const query = new URLSearchParams(useLocation().search);
@@ -78,7 +79,7 @@ export default function CommentList(props: React.Props<any>) {
                 ]}
               >
                 <List.Item.Meta
-                  avatar={<Avatar src={item.user && item.user.avatarHd} />}
+                  avatar={<Avatar src={item.user && getImageUrl(item.user.avatarHd) } />}
                   title={
                     <a target="_blank" href={item.user.profileUrl}>{`@${
                       item.user && item.user.screenName

@@ -112,7 +112,7 @@ export default function CommentList(props: React.Props<any>) {
                 ]}
               >
                 <List.Item.Meta
-                  avatar={<Avatar src={item.user && item.user.avatarHd} />}
+                  avatar={<Avatar src={item.user && getImageUrl(item.user.avatarHd) } />}
                   title={
                     <a target="_blank" href={item.user.profileUrl}>{`@${
                       item.user && item.user.screenName

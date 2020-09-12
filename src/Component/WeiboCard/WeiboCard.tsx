@@ -51,7 +51,7 @@ export default function WeiboCard(props: CardProps) {
       {" "}
       <Card.Meta
         style={{ marginBottom: 10 }}
-        avatar={<Avatar src={weibo&&weibo.user && weibo.user.avatarHd} />}
+        avatar={<Avatar src={weibo&&weibo.user && getImageUrl(weibo.user.avatarHd) } />}
         title={`@${weibo&&weibo.user && weibo.user.screenName}`}
         description={HtmlParser(weibo&&weibo.text)}
       />

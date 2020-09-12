@@ -5,6 +5,7 @@ import { useParams, useLocation, useHistory } from "react-router-dom";
 import { getSingleCommentApi } from "../../Api";
 import {SubCommentList} from '../../Component/SubCommentList'
 import HtmlParser from "react-html-parser";
+import { getImageUrl } from "../../Utility/parseUrl";
 function SubComments(props: React.Props<any>) {
   function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -76,7 +77,7 @@ function SubComments(props: React.Props<any>) {
               style={{ marginBottom: 10 }}
               avatar={
                 <Avatar
-                  src={comment && comment.user && comment.user.avatarHd}
+                  src={comment && comment.user && getImageUrl(comment.user.avatarHd) }
                 />
               }
               title={`@${comment && comment.user && comment.user.screenName}`}
