@@ -46,7 +46,7 @@ export default function WeiboCard(props: CardProps) {
           <span> {weibo&&weibo.attitudesCount}</span>
         </div>,
       ]}
-      style={{ width: 600 }}
+      style={{ width: '100%' }}
     >
       {" "}
       <Card.Meta
@@ -64,7 +64,8 @@ export default function WeiboCard(props: CardProps) {
                   {item.map((ele) => (
                     <Col
                       key={ele.url}
-                      style={{ width: 150, overflow: "hidden" }}
+                      style={{ overflow: "hidden" }}
+                      span={8}
                     >
                       <PhotoConsumer
                         key={getImageUrl(ele.url)}
@@ -75,7 +76,7 @@ export default function WeiboCard(props: CardProps) {
                           className="img-thumbnail"
                           style={{
                             height: 150,
-                            width: 150,
+                            width: '100%',
                             objectFit: "cover",
                           }}
                           src={getImageUrl(ele.url)}

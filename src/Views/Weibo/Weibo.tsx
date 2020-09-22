@@ -36,7 +36,7 @@ function Weibo(Props: React.Props<any>) {
   return (
     <>
       <Row justify="center" align="middle">
-        <Col style={{width:600}} span={8}>
+        <Col  xs={24} sm={20} md={12} lg={12} xl={8}> 
           {weibos.map((item: any) => {
             return (
               <Row className={"mt-3"} key={item.id}>
