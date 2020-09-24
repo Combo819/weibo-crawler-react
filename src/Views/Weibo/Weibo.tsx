@@ -54,7 +54,7 @@ function Weibo(Props: React.Props<any>) {
         </Col>
       </Row>
       <Row justify="center" align="middle">
-        <Col className="d-flex flex-row-reverse" span={8}>
+        <Col className="d-flex flex-row-reverse" xs={24} sm={20} md={12} lg={12} xl={8}>
           <Pagination
             showSizeChanger
             onShowSizeChange={onShowSizeChange}

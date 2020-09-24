@@ -56,11 +56,11 @@ export default function WeiboCard(props: CardProps) {
         description={HtmlParser(weibo&&weibo.text)}
       />
       {weibo&&weibo.pics && (
-        <Row justify="center">
+        <Row justify="center" align='middle'>
           <Col>
             <PhotoProvider>
               {chunkImages.map((item) => (
-                <Row gutter={[8, 8]} justify="start">
+                <Row gutter={[8, 8]} justify="center">
                   {item.map((ele) => (
                     <Col
                       key={ele.url}
@@ -95,8 +95,8 @@ export default function WeiboCard(props: CardProps) {
           <Col>
             <ReactPlayer
               type="video/mp4"
-              style={{ marginLeft: 30 }}
-              width={500}
+             
+              width={"100%"}
               url={getVideoUrl(weibo&&weibo.pageInfo.url)}
               controls={true}
             />
