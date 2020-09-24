@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row, Pagination } from "antd";
+import { Col, Row, Pagination,Empty } from "antd";
 import { WeiboCard } from "../../Component/WeiboCard";
 import { getWeibosApi } from "../../Api";
 import { useLocation,useHistory } from "react-router-dom";
@@ -37,7 +37,7 @@ function Weibo(Props: React.Props<any>) {
     <>
       <Row justify="center" align="middle">
         <Col  xs={24} sm={20} md={12} lg={12} xl={8}> 
-          {weibos.map((item: any) => {
+          {weibos.length>0?weibos.map((item: any) => {
             return (
               <Row className={"mt-3"} key={item.id}>
                 <Col>
@@ -50,7 +50,7 @@ function Weibo(Props: React.Props<any>) {
                 </Col>
               </Row>
             );
-          })}
+          }):<Empty />}
         </Col>
       </Row>
       <Row justify="center" align="middle">
