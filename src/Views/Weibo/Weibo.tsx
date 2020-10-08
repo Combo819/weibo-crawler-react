@@ -26,6 +26,16 @@ function Weibo(Props: React.Props<any>) {
       });
   }, [page,pageSize]);
 
+  const changePage = (currentPage: number, pageSize: number | undefined) => {
+    const newPage = currentPage<=0?1:currentPage;
+    setPage(String(newPage));
+    setPageSize(String(pageSize));
+    history.push({
+      pathname: `/`,
+      search: `?page=${newPage}&pageSize=${pageSize}`,
+    });
+  };
+
   const onShowSizeChange = (currentPage: number, pageSize: number) => {
     const newPage = currentPage<=0?1:currentPage;
     setPage(String(newPage));
@@ -56,6 +66,7 @@ function Weibo(Props: React.Props<any>) {
       <Row justify="center" align="middle">
         <Col className="d-flex flex-row-reverse" xs={24} sm={20} md={12} lg={12} xl={8}>
           <Pagination
+            onChange={changePage}
             showSizeChanger
             onShowSizeChange={onShowSizeChange}
             defaultCurrent={parseInt(page||'1')}
